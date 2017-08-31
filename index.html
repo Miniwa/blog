@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Blogg</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div class="page-content center">
+            <nav>
+                <a href="index.html">Start</a>
+                <a href="#find-post">Find</a>
+            </nav>
+            <div id="find-post" class="blog-post">
+                <h2>Find</h2>
+                <p>
+                Idag ska jag försöka lära er om kommandot find. Find används för att leta reda på filer, ofta med parametrar som
+                till exempel att filen måste sluta med en viss bokstav, vara en viss storlek eller innehålla en viss text.
+                Till att börja med ska jag visa hur man hittar alla filer med ett visst namn, i det här fallet alla python filer:
+                </p>
+                <p>
+                'find ~ -name "*.py"' (* är den s.k. wildcard operatorn som tillåter vilken text som helst, vilket betyder att alla filer som slutar på ".py" kommer hittas.)
+                </p>
+                <p>
+                Vi kan även se till att endast filer maximalt tre kataloger under hemkatalogen finns med:
+                </p>
+                <p>
+                'find ~ -maxdepth 3 -name "*.py"' (Maxdepth flaggan gör precis vad det låter som.)
+                </p>
+                <p>
+                Vill man filtrera bort alla filer som ej är exekverbara får man lägga till två filter:
+                </p>
+                <p>
+                'find ~ -maxdepth 3 -name "*.py" -perm -g+x | xargs grep -l "^#\!"' (Vi kollar om filen har 'x' flaggan, d.v.s filen är körbar. Vi måste även kolla så att filen
+                börjar med "#!" för att se att python filen verkligen är körbar, detta görs via grep och xargs. Xargs är ett program som kör ett visst kommando för varje fil som find
+                hittar, i det här fallet grep.)
+                </p>
+                <p>
+                Vi kan även använda find till hjälp om vi får slut på diskutrymme:
+                </p>
+                <p>
+                'find ~ -size +5M' (Size kontrollerar ifall en fil är exakt, störra än eller mindre än en viss storlek. I det här fallet större än 5Mb. Kommandot visar alltså alla filer störra än 5Mb som ligger under hemkatalogen.)
+                </p>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,46 @@
+div.page-content {
+    width: 990px;
+    height: 100%;
+    min-width: 990px;
+    max-width: 990px;
+    margin-top: 0;
+    text-align: center;
+    background-color: #2E2E2E;
+
+    font-size: 1.1em;
+}
+
+div.center {
+    margin: auto;
+}
+
+nav {
+    padding: 17px;
+    background-color: #232323;
+}
+
+nav > a {
+    color: white;
+    text-decoration: none;
+    padding: 17px;
+    font-size: 1.3em;
+}
+
+div.blog-post {
+    text-align: left;
+    color: white;
+    padding: 20px;
+}
+
+div.blog-post > h2 {
+    margin: 5px;
+}
+
+nav > a:hover {
+    background-color: #292828;
+}
+
+body {
+    margin: 0;
+    background-color: #0e0e0e;
+}
