@@ -1,4 +1,4 @@
-div.page-content {
+main.page-content {
     width: 990px;
     height: 100%;
     min-width: 990px;
@@ -10,7 +10,7 @@ div.page-content {
     font-size: 1.1em;
 }
 
-div.center {
+main.center {
     margin: auto;
 }
 
@@ -26,13 +26,13 @@ nav > a {
     font-size: 1.3em;
 }
 
-div.blog-post {
+article.blog-post {
     text-align: left;
     color: white;
     padding: 20px;
 }
 
-div.blog-post > h2 {
+article.blog-post > h2 {
     margin: 5px;
 }
 
