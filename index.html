@@ -12,36 +12,79 @@
             <nav>
                 <a href="index.html">Start</a>
                 <a href="#find-post">Find</a>
+                <a href="#function-post">Funktioner</a>
             </nav>
             <article id="find-post" class="blog-post">
                 <h2>Find</h2>
                 <p>
-                Idag ska jag försöka lära er om kommandot find. Find används för att leta reda på filer, ofta med parametrar som
-                till exempel att filen måste sluta med en viss bokstav, vara en viss storlek eller innehålla en viss text.
-                Till att börja med ska jag visa hur man hittar alla filer med ett visst namn, i det här fallet alla python filer:
+                    Idag ska jag försöka lära er om kommandot find. Find används för att leta reda på filer, ofta med parametrar som
+                    till exempel att filen måste sluta med en viss bokstav, vara en viss storlek eller innehålla en viss text.
+                    Till att börja med ska jag visa hur man hittar alla filer med ett visst namn, i det här fallet alla python filer:
                 </p>
+                <pre><code>find ~ -name "*.py"</code></pre>
+                * är den s.k. wildcard operatorn som tillåter vilken text som helst, vilket betyder att alla filer som slutar på ".py" kommer hittas.
                 <p>
-                'find ~ -name "*.py"' (* är den s.k. wildcard operatorn som tillåter vilken text som helst, vilket betyder att alla filer som slutar på ".py" kommer hittas.)
+                    Vi kan även se till att endast filer maximalt tre kataloger under hemkatalogen finns med:
                 </p>
+                <pre><code>find ~ -maxdepth 3 -name "*.py"</code></pre>
+                Maxdepth flaggan gör precis vad det låter som.
                 <p>
-                Vi kan även se till att endast filer maximalt tre kataloger under hemkatalogen finns med:
+                    Vill man filtrera bort alla filer som ej är exekverbara får man lägga till två filter:
                 </p>
-                <p>
-                'find ~ -maxdepth 3 -name "*.py"' (Maxdepth flaggan gör precis vad det låter som.)
-                </p>
-                <p>
-                Vill man filtrera bort alla filer som ej är exekverbara får man lägga till två filter:
-                </p>
-                <p>
-                'find ~ -maxdepth 3 -name "*.py" -perm -g+x | xargs grep -l "^#\!"' (Vi kollar om filen har 'x' flaggan, d.v.s filen är körbar. Vi måste även kolla så att filen
+                <pre><code>find ~ -maxdepth 3 -name "*.py" -perm -g+x | xargs grep -l "^#\!"</code></pre>
+                Vi kollar om filen har 'x' flaggan, d.v.s filen är körbar. Vi måste även kolla så att filen
                 börjar med "#!" för att se att python filen verkligen är körbar, detta görs via grep och xargs. Xargs är ett program som kör ett visst kommando för varje fil som find
-                hittar, i det här fallet grep.)
-                </p>
+                hittar, i det här fallet grep.
                 <p>
-                Vi kan även använda find till hjälp om vi får slut på diskutrymme:
+                    Vi kan även använda find till hjälp om vi får slut på diskutrymme:
                 </p>
+                <pre><code>find ~ -size +5M</code></pre>
+                Size kontrollerar ifall en fil är exakt, större än eller mindre än en viss storlek. I det här fallet större än 5Mb. Kommandot visar alltså alla filer störra än 5Mb som ligger under hemkatalogen.
+            </article>
+            <article id="function-post" class="blog-post">¨
+                <h2>Funktioner</h2>
                 <p>
-                'find ~ -size +5M' (Size kontrollerar ifall en fil är exakt, störra än eller mindre än en viss storlek. I det här fallet större än 5Mb. Kommandot visar alltså alla filer störra än 5Mb som ligger under hemkatalogen.)
+                    Idag ska vi lära oss lite om bash funktioner. En bash funktion defineras på följande sätt:
+                </p>
+                <pre>
+                    <code>
+function func {
+
+}
+                    </code>
+                </pre>
+                <p>
+                    Detta känns säkert bekant för det flesta programmerare, viktigt att tänka på är att namngivna argument inte existerar.
+                    En funktion kan alltså ta emot hur många eller hur få argument som helst. Men tomma funktioner är inte så användbara, här är ett exempel på en funktion som skriver ut varje argument den tar emot.
+                </p>
+                <pre>
+                    <code>
+function count {
+    for var in "$@"
+    do
+        echo "$var"
+    done
+}    
+                    </code>
+                </pre>
+                <p>
+                    "$@" är en speciell variabel som innehåller alla argumenten till en funktion, således är det enkelt att iterera genom argumenten och skriva ut dessa till terminalen. Vill vi istället
+                    summera ihop alla argumenten till funktionen får vi ändra lite:
+                </p>
+                <pre>
+                    <code>
+function count {
+    result=0
+    for var in "$@"
+    do
+        let result=result+var
+    done
+    echo "$result"
+}
+                    </code>
+                </pre>
+                <p>
+                    Som ni ser fungerar aritmetik ungefär som väntat.
                 </p>
             </article>
         </main>
