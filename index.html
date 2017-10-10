@@ -87,6 +87,13 @@ function count {
                     Som ni ser fungerar aritmetik ungefär som väntat.
                 </p>
             </article>
+            <article id="exam-post" class="blog-post">
+                <pre>
+                    <code>
+cat resultat.txt | cut -c 25-35 | sed -e "s/^[ \t]*//" | sed "s/  /+/g" | bc | > scores && cat resultat.txt | cut -c 1-24 | paste scores - | sort -r && rm scores
+                    </code>
+                </pre>
+            </article>
         </main>
     </body>
 </html>
