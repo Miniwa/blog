@@ -88,9 +88,50 @@ function count {
                 </p>
             </article>
             <article id="exam-post" class="blog-post">
+                <h2>Slutuppgift</h2>
+                <p>
+                    I slutuppgiften ska vi summera och sortera poäng från en textfil. Vi börjar med att klippa ut alla poäng från alla delprov från filen.
+                </p>
                 <pre>
                     <code>
-cat resultat.txt | cut -c 25-35 | sed -e "s/^[ \t]*//" | sed "s/  /+/g" | bc | > scores && cat resultat.txt | cut -c 1-24 | paste scores - | sort -r && rm scores
+cat resultat.txt | cut -c 25-35
+                    </code>
+                </pre>
+                <p>
+                    Nu har vi alla delpoäng samlade, men om vi kikar lite noggrannare på uttexten så ser vi att vi har massa mellanslag i början av vissa rader.
+                    Dessa vill vi bli av med, och vi kommer använda sed för det.
+                </p>
+                <pre>
+                    <code>
+cat resultat.txt | cut -c 25-35 | sed -e "s/^[ \t]*//"
+                    </code>
+                </pre>
+                <p>
+                    För att lägga alla delpoäng till den slutgiltiga summan vill vi skapa ett uttryck som kan parsas av en kalkylator, vi gör detta genom att byta ut alla
+                    dubbla mellanslag mot ett plustecken. Sedan matar vi in uttrycket i bc för att få ut den totala poängsumman. Slutgiltigen skriver vi ut summan i en
+                    temporär fil som heter "scores".
+                </p>
+
+                <pre>
+                    <code>
+cat resultat.txt | cut -c 25-35 | sed -e "s/^[ \t]*//" | sed "s/  /+/g" | bc > scores
+                    </code>
+                </pre>
+                Nu vill vi para ihop poängsumman med respektive individ, till det använder vi cut för att få ut endast namnet på individen, samt paste för att slå ihop namnet
+                med den totala summan vi räknade ut tidigare.
+                <pre>
+                    <code>
+cat resultat.txt | cut -c 1-24 | paste scores -
+                    </code>
+                </pre>
+                <p>
+                    Nu har vi all information där vi vill ha den, det enda som återstår är att sortera uttexten, ta bort den temporära filen och slå ihop allt till ett enda bash uttryck.
+                    Slutresultat blir så här:
+                </p>
+                <pre>
+                    <code>
+cat resultat.txt | cut -c 25-35 | sed -e "s/^[ \t]*//" | sed "s/  /+/g" | bc > scores
+&& cat resultat.txt | cut -c 1-24 | paste scores - | sort -r && rm scores
                     </code>
                 </pre>
             </article>
